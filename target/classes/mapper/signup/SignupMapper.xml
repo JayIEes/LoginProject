@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.signup.signupMapper">
+	
+	<!-- 아이디 중복 조회 -->
+	<select id="selectId" parameterType="string" resultType="string">
+		select id
+		from member 
+		where id = #{id}
+	</select>
+	
+	<!-- 회원가입 등록 -->
+	<insert id="insertMember" parameterType="signupVO">
+		insert into member(name, id, password, birthday)
+		values( #{name}, #{id}, #{password}, #{birthday})
+	</insert>
+</mapper>
