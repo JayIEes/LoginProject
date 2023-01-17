@@ -9,9 +9,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.login.project.domain.PostDomain;
 import com.login.project.vo.LoginVO;
 import com.login.project.vo.PostVO;
 import com.login.project.vo.SignupVO;
+import com.sun.tools.javac.util.List;
 
 
 @Repository
@@ -30,5 +32,15 @@ public class PostDao {
 		
 		 return resultCnt;
 	 }
+	
+	public List<PostDomain> selectPosts() {
+		
+		List<PostDomain> postList = null;
+		
+		postList =( sqlSessionTemplate.selectList("mapper.post.postMapper.selectPosts");
+		
+		return postList;
+		
+	}
 	 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.login.project.service.PostService;
+import com.login.project.vo.LoginVO;
 import com.login.project.vo.PostVO;
 import com.mysql.cj.Session;
 
@@ -19,7 +20,6 @@ public class PostController {
 	
 	@Autowired
 	PostService postService;
-	/* PostVO pVO; */
 	
 	
 	//게시판 목록 페이지 (메인페이지)
@@ -33,6 +33,8 @@ public class PostController {
 	@RequestMapping(value = "postwrite", method = RequestMethod.GET)
 	public String postPage() {
 		
+		
+		
 		return "/post/post_write";
 	}
 	
@@ -43,10 +45,9 @@ public class PostController {
 		
 		int cnt=0;
 		
-		pVO.setMember_seq((int) session.getAttribute("memberNum"));;
-		System.out.println(pVO.getTitle()+"============================zzzz=ㅋㅋㅋ=");
-		System.out.println(pVO.getMember_seq()+"============================zzzz=ㅋㅋㅋ=");
-		System.out.println(pVO.getTitle()+"============================zzzz=ㅋㅋㅋ=");
+		LoginVO loginVO = (LoginVO) session.getAttribute("memberInfo");
+		
+		pVO.setMember_seq(loginVO.getMember_seq());
 		
 		cnt=postService.insertPost(pVO);
 		

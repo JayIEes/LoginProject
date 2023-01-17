@@ -28,6 +28,15 @@
 	margin-bottom: 10px;
 }
 
+.div_shape_title{
+	display : flex;
+	flex-direction: row; 
+	justify-content:center;
+	align-content: center;
+	align-items: center;
+	font-size: 15pt;
+}
+
 .title_input{
 	border: 0px; 
 	height: 30px; 
@@ -51,12 +60,15 @@
 <body>
 <form action="putuppost" id="post_frm" method="post">
 <div class="container">
+	<div id="post_letter_div" style="height: 80px; align-items: center;" class="div_shape_title">
+		<label for="post_letter_div" >&lt; 게시글 등록 &gt;</label>
+	</div>
 	<div id="title_div" style="height: 40px; align-items: center;" class="div_shape">
 		<label for="title_div" style="margin-left: 20px;" >제목  :</label>
-		<input type="text"  maxlength="35" class="title_input" id="title">
+		<input type="text"  maxlength="35" class="title_input" id="title" name="title">
 	</div>
 	<div style="height: 320px; align-items: center; justify-content: center;" class="div_shape">
-		<textarea class="content_textarea" id="content"></textarea>
+		<textarea class="content_textarea" id="content" name="content"></textarea>
 	</div>
 	<div style="height: 40px; display : flex; flex-direction: row-reverse;">
 		<input type="button" value="등록" style="height: 30px;" onclick="button_click()">

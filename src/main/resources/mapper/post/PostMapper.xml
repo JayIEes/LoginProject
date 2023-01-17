@@ -3,8 +3,16 @@
 <mapper namespace="mapper.post.postMapper">
 	
 	<!-- 게시글 등록 -->
-	<insert id="insertPost" parameterType="signupVO">
+	<insert id="insertPost" parameterType="postVO">
 		insert into post(member_seq, title, content)
 		values( #{member_seq}, #{title}, #{content})
 	</insert>
+	
+	<!-- 게시글 조회 -->
+	<select id="selectPosts" resultType="postDomain">
+		select member_seq, post_seq, title, content, del_yn
+		from post
+	</select>
+	
+	
 </mapper>

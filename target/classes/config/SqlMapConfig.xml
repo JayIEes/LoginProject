@@ -7,6 +7,8 @@
 	<typeAliases>
 		<typeAlias alias="loginVO" type="com.login.project.vo.LoginVO"/>
 		<typeAlias alias="signupVO" type="com.login.project.vo.SignupVO"/>
+		<typeAlias alias="postVO" type="com.login.project.vo.PostVO"/>
+		<typeAlias alias="postDomain" type="com.login.project.domain.PostDomain"/>
 	</typeAliases>
 	
 <!-- 	<environments default="development">
@@ -26,5 +28,6 @@
 	<mappers>
 		<mapper resource="/mapper/login/LoginMapper.xml"/>
 		<mapper resource="/mapper/signup/SignupMapper.xml"/>
+		<mapper resource="/mapper/post/PostMapper.xml"/>
 	</mappers>
 </configuration>

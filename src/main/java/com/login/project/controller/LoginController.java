@@ -13,7 +13,7 @@ import com.login.project.vo.LoginVO;
 
 @Controller
 @Component
-@SessionAttributes("memberNum")
+@SessionAttributes("memberInfo")
 public class LoginController {
 	
 	@Autowired
@@ -30,18 +30,18 @@ public class LoginController {
 	@RequestMapping(value = "/process", method = RequestMethod.POST)
 	public String loginProcess(LoginVO lVO, Model model) {
 		
-		int memberNum= 0;
+		LoginVO loginVO  =  loginService.searchLoginInfo(lVO);
 		
-		memberNum =  loginService.searchLoginInfo(lVO);
-		
-		if(memberNum != 0) {
-			model.addAttribute("memberNum", memberNum);
+		if(loginVO != null) {
+			model.addAttribute("memberInfo", loginVO);
 			return "post/post";
 		}else {
+			
 			model.addAttribute("loginSucYn","N");
 			return "login/form";
 		}
+		
    
-	}//loginProcess
+	}
 	
 }

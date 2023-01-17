@@ -3,9 +3,9 @@
 <mapper namespace="mapper.login.loginMapper">
 	
 	<select id="selectMemberInfo" 
-		parameterType="loginVO" resultType="Integer">
-		select member_seq 
-		from member 
+		parameterType="loginVO" resultType="loginVO">
+		select member_seq, name, password, id, birthday, del_yn 
+		from member
 		where id = #{id} and password = #{password}
 	</select>
 	

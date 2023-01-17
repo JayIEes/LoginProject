@@ -15,19 +15,17 @@ public class LoginService {
 	@Autowired
 	private LoginDao lDAO;
 	
-	public int searchLoginInfo(LoginVO lVO) {
-		int num = 0;
+	public LoginVO searchLoginInfo(LoginVO lVO) {
+		LoginVO loginVO = null;
 		
 		try {
-			if(lDAO.select(lVO) != null) {
-				num = lDAO.select(lVO);
-			}
+			loginVO = lDAO.select(lVO);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return num;
+		return loginVO;
 	}//searchLoginInfo
 	
 }

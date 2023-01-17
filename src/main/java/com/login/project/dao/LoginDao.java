@@ -19,14 +19,11 @@ public class LoginDao {
 	SqlSessionTemplate sqlSessionTemplate;
 	 
 	//로그인 
-	 public Integer select(LoginVO lVO) throws PersistenceException, IOException{
+	 public LoginVO select(LoginVO lVO) throws PersistenceException, IOException{
+		 LoginVO loginVO;
 		 
-		 Integer num = 0;
-		 
-		 //1. 설정용 XML에 스트림 연결
-		 num = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectMemberInfo", lVO);
-		
-		 return num;
+		 loginVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectMemberInfo", lVO);
+		 return loginVO;
 	 }
 	 
 }
