@@ -41,7 +41,7 @@ public class LoginController {
 			model.addAttribute("loginSucYn","N");
 			return "login/form";
 		}
- 
+   
 	}//loginProcess
 	
 }
