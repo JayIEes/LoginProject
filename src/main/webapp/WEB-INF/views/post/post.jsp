@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,17 +69,25 @@ tr, td{
 		</tr>
 	</thead>
 	<tbody>
-			<tr>
-			<td>testtetsetets</td>
-<!-- 			<td style="height: 10px;">testtetsetets</td> -->
-			<td>testtetsetets</td>
-			<td>testtetsetets</td>
-		</tr>
+		
+		<c:choose>
+			<c:when test="${fn:length(postList)!=0}">
+				<c:forEach var="item" items="${postList}" varStatus="status">
+				<tr>
+					<td><c:out value="${fn:substring(item.title, 0, 5)}"/></td>
+					<td><c:out value="${fn:substring(item.content, 0, 10)}"/></td>
+					<td><c:out value="${item.member_seq}"/></td>
+				</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="3">조회된 글이 없습니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+		
 		<tr>
-			<td>testtetsetets</td>
-			<td>testtetsetets</td>
-			<td>testtetsetets</td>
-		</tr>
 
 		<tr style="border-bottom: 0px;">
 			<td colspan="3" style="border-bottom: 0px;">

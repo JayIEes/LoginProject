@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.login.project.dao.LoginDao;
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 
 @Service
 public class LoginService {
@@ -15,17 +15,17 @@ public class LoginService {
 	@Autowired
 	private LoginDao lDAO;
 	
-	public LoginVO searchLoginInfo(LoginVO lVO) {
-		LoginVO loginVO = null;
+	public MemberVO searchLoginInfo(MemberVO mVO) {
+		MemberVO memberVO = null;
 		
 		try {
-			loginVO = lDAO.select(lVO);
+			memberVO = lDAO.selectMember(mVO);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return loginVO;
+		return memberVO;
 	}//searchLoginInfo
 	
 }

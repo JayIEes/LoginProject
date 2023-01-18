@@ -21,7 +21,6 @@
     </bean>
 	
 	
-	
 	<!-- MySQL dataSource -->
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">         

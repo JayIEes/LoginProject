@@ -75,6 +75,7 @@
 	</div>
 </div>
 </form>
+
 <script type="text/javascript">
 function button_click() {
 	document.forms["post_frm"].submit();

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.login.project.service.LoginService;
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 
 @Controller
 @Component
@@ -28,13 +28,13 @@ public class LoginController {
 	
 	//로그인 처리
 	@RequestMapping(value = "/process", method = RequestMethod.POST)
-	public String loginProcess(LoginVO lVO, Model model) {
+	public String loginProcess(MemberVO mVO, Model model) {
 		
-		LoginVO loginVO  =  loginService.searchLoginInfo(lVO);
+		MemberVO loginVO  =  loginService.searchLoginInfo(mVO);
 		
 		if(loginVO != null) {
 			model.addAttribute("memberInfo", loginVO);
-			return "post/post";
+			return "redirect:/post";
 		}else {
 			
 			model.addAttribute("loginSucYn","N");

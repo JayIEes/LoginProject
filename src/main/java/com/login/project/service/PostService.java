@@ -3,16 +3,13 @@ package com.login.project.service;
 import java.io.IOException;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.login.project.dao.LoginDao;
 import com.login.project.dao.PostDao;
-import com.login.project.dao.SignupDao;
-import com.login.project.vo.LoginVO;
+import com.login.project.domain.PostDomain;
 import com.login.project.vo.PostVO;
-import com.login.project.vo.SignupVO;
+import java.util.List;
 
 @Service
 public class PostService {
@@ -32,7 +29,19 @@ public class PostService {
 		}
 		
 		return resultCnt;
-	}//searchLoginInfo
+	}
+	
+	
+	//게시글 목록조회
+	public List<PostDomain> selectPosts(){
+		
+		List<PostDomain> list = null;
+		
+		list = pDAO.selectPosts(); 
+		
+		return list;
+	}
+	
 	
 	
 }

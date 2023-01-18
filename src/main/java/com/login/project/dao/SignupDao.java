@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 import com.login.project.vo.SignupVO;
 
 
@@ -24,7 +24,7 @@ public class SignupDao {
 		 
 		 String resultId="";
 		 
-		 resultId = sqlSessionTemplate.selectOne("mapper.signup.signupMapper.selectId", id);
+		 resultId = sqlSessionTemplate.selectOne("mapper.login.signupMapper.selectId", id);
 		
 		 return resultId;
 	 }
@@ -34,7 +34,7 @@ public class SignupDao {
 		 
 		 int cnt=0;
 		 
-		 cnt = sqlSessionTemplate.insert("mapper.signup.signupMapper.insertMember", sVO);
+		 cnt = sqlSessionTemplate.insert("mapper.login.signupMapper.insertMember", sVO);
 		 
 		 return cnt;
 	 }

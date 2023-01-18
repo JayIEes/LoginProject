@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 
 
 @Repository
@@ -19,11 +19,12 @@ public class LoginDao {
 	SqlSessionTemplate sqlSessionTemplate;
 	 
 	//로그인 
-	 public LoginVO select(LoginVO lVO) throws PersistenceException, IOException{
-		 LoginVO loginVO;
+	 public MemberVO selectMember(MemberVO mVO) throws PersistenceException, IOException{
+		 MemberVO memberVO;
 		 
-		 loginVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectMemberInfo", lVO);
-		 return loginVO;
+		 memberVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectMemberInfo", mVO);
+		 
+		 return memberVO;
 	 }
 	 
 }

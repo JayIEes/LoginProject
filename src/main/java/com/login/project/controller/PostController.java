@@ -1,6 +1,7 @@
 package com.login.project.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.login.project.domain.PostDomain;
 import com.login.project.service.PostService;
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 import com.login.project.vo.PostVO;
-import com.mysql.cj.Session;
 
 @Controller
 public class PostController {
@@ -24,16 +25,20 @@ public class PostController {
 	
 	//게시판 목록 페이지 (메인페이지)
 	@RequestMapping(value = "post", method = RequestMethod.GET)
-	public String post() {
+	public String post(Model model) {
+		
+		List<PostDomain> list =null;
+		
+		list = postService.selectPosts();
+		model.addAttribute("postList", list);
+		
 		return "/post/post";
 	}
 	
 	
 	//게시글 등록 페이지
 	@RequestMapping(value = "postwrite", method = RequestMethod.GET)
-	public String postPage() {
-		
-		
+	public String postPage(Model model) {
 		
 		return "/post/post_write";
 	}
@@ -45,16 +50,18 @@ public class PostController {
 		
 		int cnt=0;
 		
-		LoginVO loginVO = (LoginVO) session.getAttribute("memberInfo");
+		MemberVO loginVO = (MemberVO) session.getAttribute("memberInfo");
 		
-		pVO.setMember_seq(loginVO.getMember_seq());
+		pVO.setId(loginVO.getId());
 		
 		cnt=postService.insertPost(pVO);
 		
 		if(cnt!=0) {//게시판 등록 성공시
+			//성공 메시지 넣기 model로
 			return "/post/post";
+			
 		}else {
-			return "/login/login_fail";
+			return "/post/post_write";
 		}//if else
 		
 	}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.login.project.dao.LoginDao;
 import com.login.project.dao.SignupDao;
-import com.login.project.vo.LoginVO;
+import com.login.project.vo.MemberVO;
 import com.login.project.vo.SignupVO;
 
 @Service
