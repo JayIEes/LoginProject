@@ -9,7 +9,7 @@
 	</insert>
 	
 	<!-- 게시글 조회 -->
-	<select id="selectPosts" resultType="com.login.project.domain.PostDomain">
+	<select id="selectPosts" resultType="postDomain">
 		select post_seq, id, title, content, del_yn
 		from post
 	</select>

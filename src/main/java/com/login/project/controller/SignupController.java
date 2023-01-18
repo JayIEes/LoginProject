@@ -23,12 +23,11 @@ public class SignupController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signupForm() {
 		
-		return "signup/signup";
+		return "login/signup";
 	}
 	
 	
 	
-	@ResponseBody
 	@RequestMapping(value = "/signupform", method = RequestMethod.GET)
 	public String signupProcess(String id) throws IOException { //아이디 중복
 		
@@ -51,7 +50,7 @@ public class SignupController {
 			
 			model.addAttribute("signupSucYn","N");
 			
-			return "signup/signup";
+			return "login/signup";
 		}else { //회원가입 성공
 			model.addAttribute("signupSucYn","Y");
 			return "signup/signup_result";
