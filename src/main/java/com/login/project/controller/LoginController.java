@@ -1,10 +1,8 @@
 package com.login.project.controller;
 
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +22,8 @@ public class LoginController {
 	
 	//로그인 페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String loginForm(HttpRequest req) {
+	public String loginForm() {
+		
 		System.out.println("main page=================================");
 		return "login/form";
 	}
@@ -33,16 +32,14 @@ public class LoginController {
 	@RequestMapping(value = "/process", method = RequestMethod.POST)
 	public String loginProcess(MemberVO mVO, Model model) {
 		
-		MemberVO loginVO  =  loginService.searchLoginInfo(mVO);
+		//MemberVO loginVO  =  loginService.searchLoginInfo(mVO);
 		
-		if(loginVO != null) {
-			model.addAttribute("memberInfo", loginVO);
-			return "redirect:/post";
-		}else {
-			
-			model.addAttribute("loginSucYn","N");
-			return "login/form";
-		}
+		
+		 if(mVO != null) { model.addAttribute("memberInfo", mVO); 
+		 	return "redirect:/post"; 
+		 }else {
+			 model.addAttribute("loginSucYn","N"); return "login/form"; }
+		 
 		
 	}
 	
