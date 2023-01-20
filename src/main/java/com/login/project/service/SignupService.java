@@ -36,12 +36,12 @@ public class SignupService {
 	
 	
 	//회원가입 회원 신규 등록
-	public int insertMember(SignupVO sVO) throws IOException {
+	public int insertMember(MemberVO mVO) throws IOException {
 		
 		int resultCnt = 0;
 		
 		try {
-			resultCnt = sDAO.insertNewMember(sVO); 
+			resultCnt = sDAO.insertNewMember(mVO); 
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}

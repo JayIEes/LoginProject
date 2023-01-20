@@ -18,7 +18,6 @@
 		alert("로그인에 실패했습니다. 다시시도해주세요.");
 	}
 	
-	alert("${loginSucYn}");
 	// 회원가입 성공 알림
 	if("${signupSucYn}"=="Y"){
 		
@@ -27,18 +26,16 @@
 	
 	</script>
 <meta charset="UTF-8">
-<title>로그인하기</title>
+<title>로그인</title>
 </head>
 	<body>
-	<h1>Login</h1>
+	<h1>로그인</h1>
 	<form action="process" id="login-frm" method="post">
-		<p> ID <input type="text" name="id" /></p>
-		<p> PASSWORD <input type="password" name="password" /></p>
-		<p><input type="submit" value="로그인" /></p>
-		<p><input type="button" value="회원가입" onclick="location.href='signup'"/></p>
-		<p><input type="text" value="${loginSucYn}"/></p>
+		<p> 아이디 <input type="text" name="id" /></p>
+		<p> 패스워드 <input type="password" name="password" /></p>
+		<p><input type="submit" value="로그인" />
+		<input type="button" value="회원가입" onclick="location.href='signup'"/></p>
 	</form>
-
 
 	</body>
 </html>

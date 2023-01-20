@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.login.project.vo.MemberVO;
 import com.login.project.vo.SignupVO;
 
 
@@ -30,11 +31,11 @@ public class SignupDao {
 	 }
 	 
 	 //회원 신규등록
-	 public int insertNewMember(SignupVO sVO) throws PersistenceException, IOException{
+	 public int insertNewMember(MemberVO mVO) throws PersistenceException, IOException{
 		 
 		 int cnt=0;
 		 
-		 cnt = sqlSessionTemplate.insert("mapper.login.signupMapper.insertMember", sVO);
+		 cnt = sqlSessionTemplate.insert("mapper.login.signupMapper.insertMember", mVO);
 		 
 		 return cnt;
 	 }

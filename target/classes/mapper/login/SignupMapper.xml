@@ -10,8 +10,8 @@
 	</select>
 	
 	<!-- 회원가입 등록 -->
-	<insert id="insertMember" parameterType="signupVO">
-		insert into member(name, id, password, birthday)
-		values( #{name}, #{id}, #{password}, #{birthday})
+	<insert id="insertMember" parameterType="memberVO">
+		insert into member(name, id, password, birthday, gender)
+		values( #{name}, #{id}, #{password}, #{birthday}, #{gender})
 	</insert>
 </mapper>

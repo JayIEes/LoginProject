@@ -6,7 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-	<script type="text/javascript">
+
+</head>
+
+<body>
+	<h1>회원가입</h1>
+	<form action="signupprocess" id="signup-frm" method="post">
+		<%-- <input type="hidden" id="signupError" value="${signupSucYn}"/> --%>
+	
+		<p> 아이디 <input type="text" name="id" id="id" onkeydown="idDupReset()"/>
+		<input type="button" value="중복검사" onclick="idDupChk()"/>
+		<label for="id" id="idDupYn"></label><br></p>
+		
+		<p> 패스워드 <input type="password" name="password" id="password"/></p>
+		
+		<p> 이름 <input type="text" name="name" id="name" /></p>
+		
+		<p> 생년월일 <input type="text" name="birthday" id="birthday"/></p>
+		
+		<p> 성별<input type="radio" name="gender" id="male" value="M"/><label for="male">남성</label>
+		<input type="radio" name="gender" id="female" value="F"/><label for="female">여성</label>
+		</p>
+		<p><input type="submit" value="회원가입"/></p>
+	</form>
+		<script type="text/javascript">
 	
 	/************************************************************************
 	 * 설명 : 회원가입 폼
@@ -15,20 +38,22 @@
 	 * 변경일 : 
 	************************************************************************/
 	
-	//아이디 중복체크 flag
+	//아이디 중복체크 초기화
 	let idChk = false;
+	idDupReset();
+	
+	//회원가입 서버체크 메세지
+	if("${msg}" !== ""){
+		//idDupReset();
+		alert("${msg}");
+		history.back();
+	}	
 	
 	
-	// 회원가입 실패 알림
-	if(document.getElementById("signupError").value =="N"){
-		
-		alert("회원가입에 실패했습니다. 다시시도해주세요.");
-	}
-
-	
-	// 회원가입 버튼 onclick
+	/*
+	 * 회원가입 버튼 클릭 시
+	 */
 	function register_onclick(){
-		
 		const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 	 	const regex1 = /^[0-9|]+$/;
 		let name = document.getElementById("name").value;
@@ -36,13 +61,11 @@
 		let id = document.getElementById("id").value;
 		let password = document.getElementById("password").value;
 		
-		
 		if(name == ""){
 			
 			alert("이름은 필수 입력 사항입니다.");
 			return;
 		}
-		
 		
 		if(!regex.test(name)){
 			
@@ -50,20 +73,17 @@
 			return;
 		}
 		
-		
 	 	if(birthday == ""){
 			
 	 		alert("생년월일은 필수 입력 사항입니다.");
 			return;
 		}
 		
-	 	
 		if(birthday.length !== 8){
 			
 			alert("생년월일은 예시)19930102 처럼 입력해주세요.");
 			return;
 		}
-		
 		
 		if(!regex1.test(birthday)){
 		
@@ -71,20 +91,17 @@
 			return;
 		}
 		
-		
 		if(id == ""){
 			
 			alert("아이디는 필수 입력 사항입니다.");
 			return;
 		}
 		
-		
 		if(password == ""){
 			
 			alert("비밀번호는 필수 입력 사항입니다.");
 			return;
 		}
-		
 		
 		if(!idChk){
 			
@@ -94,13 +111,27 @@
 		
 		//회원가입 submit
 		document.forms["signup-frm"].submit();
-	}
+	};
 	
 	
-	//AJAX로 아이디 중복체크
+	/*
+	 * 아이디 중복체크
+	 */
 	function idDupChk(){
 		
 		let inputId = document.getElementById("id").value;
+		
+		if(inputId == ""){
+			
+			alert("아이디를 입력해주세요.");
+			return;
+		}
+		
+		if(inputId.length()  < 8 ){
+			
+			alert("아이디는 8자리 이상으로 입력해주세요.");
+			return;
+		}
 		
 		// Creating Our XMLHttpRequest object 
 	    var xhr = new XMLHttpRequest();
@@ -116,12 +147,12 @@
 	        	if(this.responseText == ""){
 	        		
 	        		idChk = true;
-	        		document.getElementById("idDupYn").innerHTML = "사용가능한 아이디입니다.";
+	        		document.getElementById("idDupYn").innerHTML = "   사용 가능한 아이디입니다.";
 	        		document.getElementById("idDupYn").style.color = "#0000FF";
 	        	}else{
 	        		
 	        		idChk = false;
-	        		document.getElementById("idDupYn").innerHTML = "사용 불가능한 아이디입니다.";
+	        		document.getElementById("idDupYn").innerHTML = "   이미 사용된 아이디입니다.";
 	        		document.getElementById("idDupYn").style.color = "#FF0000";
 	        	}
 	        	
@@ -130,33 +161,19 @@
 	    }
 	    // Sending our request 
 	    xhr.send();
-	}
+	};
 	
 	
 	
+	/*
+	 * 아이디 변경 시 중복체크 여부 리셋
+	 */
 	function idDupReset(){
 		idChk = false;
 		document.getElementById("idDupYn").innerHTML = "";
-	}
+	};
+	
 	
 	</script>
-</head>
-
-<body>
-	<h1>Sign Up</h1>
-	<form action="signupComplete" id="signup-frm" method="post">
-		<input type="hidden" id="signupError" value="${signupSucYn}"/>
-	
-		<p> 이름 <input type="text" name="name" id="name" value="김정봉" /></p>
-		<p> 생년월일 <input type="text" name="birthday" id="birthday" value="19920105"/></p>
-		
-		<p> 아이디 <input type="text" name="id" id="id" value="test" onkeydown="idDupReset()"/>
-		<label for="id" id="idDupYn"></label><br>
-		<input type="button" value="중복체크" onclick="idDupChk()"/></p>
-		
-		<p> 비밀번호 <input type="password" name="password" id="password" value="4567"/></p>
-		<p><input type="button" value="회원가입" onclick="register_onclick()"/></p>
-	</form>
-	
 </body>
 </html>

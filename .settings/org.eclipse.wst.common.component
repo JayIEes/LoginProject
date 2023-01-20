@@ -8,13 +8,13 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/test/java/webapp"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
                                 		
         
         
         
         <property name="java-output-path" value="LoginProject/build/classes"/>
-                
-        <property name="context-root" value="/"/>
+        <property name="context-root" value="project"/>
                                 	
     
     
