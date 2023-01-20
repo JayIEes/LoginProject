@@ -1,5 +1,8 @@
 package com.login.project.controller;
 
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -7,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.login.project.service.LoginService;
 import com.login.project.vo.MemberVO;
 
 @Controller
-@Component
 @SessionAttributes("memberInfo")
 public class LoginController {
 	
@@ -20,9 +23,9 @@ public class LoginController {
 	private LoginService loginService;
 	
 	//로그인 페이지
-	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String loginForm() {
-		
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String loginForm(HttpRequest req) {
+		System.out.println("main page=================================");
 		return "login/form";
 	}
 	
@@ -41,7 +44,15 @@ public class LoginController {
 			return "login/form";
 		}
 		
-   
+	}
+	
+	
+	//로그아웃 페이지
+	@RequestMapping(value = "/signout", method = RequestMethod.GET)
+	public String signout(SessionStatus ss) {
+		ss.setComplete();
+		
+		return "login/form";
 	}
 	
 }

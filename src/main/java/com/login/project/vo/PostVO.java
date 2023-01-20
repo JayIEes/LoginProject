@@ -2,7 +2,7 @@ package com.login.project.vo;
 
 public class PostVO {
 	
-	private String title, content, id;
+	private String title, content, id, date;
 
 	public String getTitle() {
 		return title;
@@ -27,6 +27,14 @@ public class PostVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	
 }

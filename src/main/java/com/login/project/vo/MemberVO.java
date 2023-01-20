@@ -1,7 +1,6 @@
 package com.login.project.vo;
 
 public class MemberVO {
-	
 	private String name, id, birthday,del_yn, password;
 
 	public String getName() {

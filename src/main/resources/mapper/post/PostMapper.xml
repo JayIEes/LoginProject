@@ -4,13 +4,13 @@
 	
 	<!-- 게시글 등록 -->
 	<insert id="insertPost" parameterType="postVO">
-		insert into post(id ,title, content)
-		values( #{id}, #{title}, #{content})
+		insert into post(id ,title, content, date)
+		values( #{id}, #{title}, #{content}, sysdate())
 	</insert>
 	
 	<!-- 게시글 조회 -->
 	<select id="selectPosts" resultType="postDomain">
-		select post_seq, id, title, content, del_yn
+		select post_seq, id, title, content, del_yn, date
 		from post
 	</select>
 	

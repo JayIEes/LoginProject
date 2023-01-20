@@ -29,6 +29,7 @@ tr, td{
 	/* border: 1px solid black; */
 	border-bottom: 1px solid #444444;
     padding: 5px;
+    text-align: center;
 }
 
 
@@ -60,12 +61,14 @@ tr, td{
 <table class="post_table">
 	<thead>
 		<tr>
-			<td colspan="3" style="height : 60px; text-align: center;">POST</td>
+			<td colspan="5" style="height : 60px; text-align: center;">POST</td>
 		</tr>
 		<tr>
-			<td style="width: 20px;">Title</td>
-			<td style="width: 200px;">Content</td>
-			<td style="width: 20px;">Writer</td>
+			<td style="width: 15px;">No.</td>
+			<td style="width: 25px;">Title</td>
+			<td style="width: 150px;">Content</td>
+			<td style="width: 30px;">date</td>
+			<td style="width: 15px;">Writer</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -74,15 +77,17 @@ tr, td{
 			<c:when test="${fn:length(postList)!=0}">
 				<c:forEach var="item" items="${postList}" varStatus="status">
 				<tr>
+					<td><c:out value="${status.count}" /></td>
 					<td><c:out value="${fn:substring(item.title, 0, 5)}"/></td>
-					<td><c:out value="${fn:substring(item.content, 0, 10)}"/></td>
-					<td><c:out value="${item.member_seq}"/></td>
+					<td style="text-align: left;"><c:out value="${fn:substring(item.content, 0, 10)}"/></td>
+					<td><c:out value="${fn:substring(item.date, 0, 10)}"/></td>
+					<td><c:out value="${item.id}"/></td>
 				</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="3">조회된 글이 없습니다.</td>
+					<td colspan="5">조회된 글이 없습니다.</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
@@ -90,7 +95,7 @@ tr, td{
 		<tr>
 
 		<tr style="border-bottom: 0px;">
-			<td colspan="3" style="border-bottom: 0px;">
+			<td colspan="5" style="border-bottom: 0px;">
 				<div class="paging_num_div"> 
 					<div>&lt;&lt;</div>  
 					<div class="paging_num">1 2 3 </div>
@@ -99,23 +104,36 @@ tr, td{
 			</td>
 		</tr>
 		<tr style="border-bottom: 0px;">
-			<td colspan="3" style="border-bottom: 0px;">
+			<td colspan="5" style="border-bottom: 0px;">
 				<div class="post_button"> 
 					<input type="button" value ="게시글 등록" onclick="location.href='/postwrite'">
+				</div>
+			</td>
+		</tr>
+		<tr style="border-bottom: 0px;">
+			<td colspan="5" style="border-bottom: 0px;">
+				<div class="post_button"> 
+					<input type="button" value ="로그아웃" onclick="signOut()">
 				</div>
 			</td>
 		</tr>
 	</tbody>
 </table>
 <script type="text/javascript">
-/* let postCount = 10;
-let totalCount = 0; */
-/* let page = 5;
-let countPage = 10;
- 
-let startPage = ((page - 1) / countPage) * countPage + 1;
- 
-let endPage = startPage + countPage - 1; */
+
+var a = "${postList}";
+a = new Array(a);
+console.log(a);
+
+
+
+if("${memberInfo}"== "" ){
+	location.href='/form';
+}
+
+function signOut(){
+	location.href='/signout';
+}
 
 </script>
 </body>

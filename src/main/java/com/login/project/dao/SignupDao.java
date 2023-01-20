@@ -8,6 +8,7 @@ import org.apache.ibatis.io.Resources;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.login.project.vo.MemberVO;
 import com.login.project.vo.SignupVO;
@@ -26,6 +27,8 @@ public class SignupDao {
 		 
 		 resultId = sqlSessionTemplate.selectOne("mapper.login.signupMapper.selectId", id);
 		
+		 System.out.println(resultId+"=============================");
+		 
 		 return resultId;
 	 }
 	 

@@ -77,6 +77,11 @@
 </form>
 
 <script type="text/javascript">
+
+if("${memberInfo}"== "" ){
+	location.href='/form';
+}
+
 function button_click() {
 	document.forms["post_frm"].submit();
 }
