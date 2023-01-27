@@ -2,9 +2,8 @@ package com.login.project.domain;
 
 public class PostDomain {
 
-	private String id, title, content, del_yn, date;
+	private String id, title, content, del_yn, date, name;
 	private int post_seq;
-	
 	public String getId() {
 		return id;
 	}
@@ -35,12 +34,19 @@ public class PostDomain {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getPost_seq() {
 		return post_seq;
 	}
 	public void setPost_seq(int post_seq) {
 		this.post_seq = post_seq;
 	}
+	
 	
 		
 }

@@ -15,11 +15,11 @@ public class LoginService {
 	@Autowired
 	private LoginDao lDAO;
 	
-	public MemberVO searchLoginInfo(MemberVO mVO) {
+	public MemberVO searchLoginId(MemberVO mVO) {
 		MemberVO memberVO = null;
 		
 		try {
-			memberVO = lDAO.selectMember(mVO);
+			memberVO = lDAO.selectId(mVO); //로그인 (ID)
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		} catch (IOException e) {
@@ -27,5 +27,22 @@ public class LoginService {
 		}
 		return memberVO;
 	}//searchLoginInfo
+	
+	
+	
+	public MemberVO searchLoginPass(MemberVO mVO) {
+		MemberVO memberVO = null;
+		
+			try {
+				memberVO = lDAO.selectPass(mVO);
+			} catch (PersistenceException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} //로그인 (ID)
+			
+		return memberVO;
+	}//searchLoginInfo
+	
 	
 }

@@ -13,15 +13,44 @@
 	************************************************************************/
 	
 	// 로그인 실패 알림
-	if("${loginSucYn}"=="N"){
+	if( "${loginSucYn}" !== "" ){
 		
-		alert("로그인에 실패했습니다. 다시시도해주세요.");
+		alert("${loginSucYn}");
+		history.back();
 	}
 	
 	// 회원가입 성공 알림
-	if("${signupSucYn}"=="Y"){
+/* 	if("${signupSucYn}"=="Y"){
 		
-		alert("회원가입에 성공했습니다.");
+		alert("정상적으로 처리되었습니다..");
+	} */
+	
+/* 	window.onpageshow = function (event) {
+		if (!event.persisted) {
+			// 회원가입 성공 알림
+			if("${signupSucYn}"=="Y"){
+				
+				alert("정상적으로 처리되었습니다.");
+			}
+		}
+	} */
+	login_button_onclick = function(){
+		
+		let id = document.getElementById("id").value;
+		let password = document.getElementById("password").value;
+		
+		if(id == ""){
+			alert("아이디를 입력해주세요.");
+			return;
+		}
+		
+		if(password == ""){
+			alert("패스워드를 입력해주세요.");
+			return;
+		}
+		
+		
+		document.forms["login_frm"].submit();
 	}
 	
 	</script>
@@ -30,10 +59,10 @@
 </head>
 	<body>
 	<h1>로그인</h1>
-	<form action="process" id="login-frm" method="post">
-		<p> 아이디 <input type="text" name="id" /></p>
-		<p> 패스워드 <input type="password" name="password" /></p>
-		<p><input type="submit" value="로그인" />
+	<form action="process" id="login_frm" method="post">
+		<p> 아이디 <input type="text" name="id" id= "id" /></p>
+		<p> 패스워드 <input type="password" name="password" id= "password"/></p>
+		<p><input type="button" value="로그인" onclick="login_button_onclick()"/>
 		<input type="button" value="회원가입" onclick="location.href='signup'"/></p>
 	</form>
 

@@ -8,6 +8,7 @@
 		<typeAlias alias="memberVO" type="com.login.project.vo.MemberVO"/>
 		<typeAlias alias="signupVO" type="com.login.project.vo.SignupVO"/>
 		<typeAlias alias="postVO" type="com.login.project.vo.PostVO"/>
+		<typeAlias alias="searchVO" type="com.login.project.vo.SearchVO"/>
 		<typeAlias alias="postDomain" type="com.login.project.domain.PostDomain"/>
 	</typeAliases>
 	

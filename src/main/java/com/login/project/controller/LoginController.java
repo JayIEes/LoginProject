@@ -47,18 +47,26 @@ public class LoginController {
 	@RequestMapping(value = "/process", method = RequestMethod.POST)
 	public String loginProcess(MemberVO mVO, Model model) {
 		
-		MemberVO memberVO  =  loginService.searchLoginInfo(mVO);
 		
+		MemberVO memberVO = loginService.searchLoginId(mVO);
 		
-		 if(mVO != null) { 
-			 
-			model.addAttribute("memberInfo", memberVO); 
+		 if(memberVO != null) { //아이디가 있으면 비밀번호 찾기
 			
-		 	return "redirect:/post"; 
+			memberVO = loginService.searchLoginPass(mVO);
+			
+			if(memberVO!= null) {
+				
+				model.addAttribute("memberInfo", memberVO); 
+				return "redirect:/postlist"; 
+			}else {//비번 틀림
+				
+				model.addAttribute("loginSucYn","패스워드를 확인하세요."); 
+				return "login/form";
+			}
+			
 		 }else {
 			 
-			 model.addAttribute("loginSucYn","N"); 
-			 
+			 model.addAttribute("loginSucYn","아이디를 확인하세요."); 
 			 return "login/form"; 
 		 }
 

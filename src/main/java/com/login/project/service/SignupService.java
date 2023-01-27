@@ -3,14 +3,11 @@ package com.login.project.service;
 import java.io.IOException;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.login.project.dao.LoginDao;
 import com.login.project.dao.SignupDao;
 import com.login.project.vo.MemberVO;
-import com.login.project.vo.SignupVO;
 
 @Service
 public class SignupService {
@@ -19,7 +16,12 @@ public class SignupService {
 	private SignupDao sDAO;
 	
 	
-	//아이디 중복체크
+	/**
+	 * 아이디 중복체크
+	 * @methodName searchId
+	 * @param String id
+	 * @return String
+	 */
 	public String searchId(String id) throws IOException {
 		
 		
@@ -35,7 +37,12 @@ public class SignupService {
 	}
 	
 	
-	//회원가입 회원 신규 등록
+	/**
+	 * 회원가입 회원 신규 등록
+	 * @methodName insertMember
+	 * @param MemberVO mVO
+	 * @return int
+	 */
 	public int insertMember(MemberVO mVO) throws IOException {
 		
 		int resultCnt = 0;

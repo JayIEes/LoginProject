@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -10,131 +11,193 @@
 </head>
 <style type="text/css">
 
-.post_table {
-	margin:-220px 0px 0px -350px;
-	height : 300px;
-	width : 700px;
+.container{
+	margin: -210px 0px 0px -300px;
+	height : 420px;
+	width : 600px;
 	position:absolute;
-    left:50%;
+  	left:50%;
     top:50%;
-	/* display: flex; */
-	/* flex-direction: row;
-	flex-wrap: nowrap; */
-	/* justify-content: space-between; */
-	border-top: 1px solid #444444;
-    border-collapse: collapse;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: stretch;
+/* border: 1px solid black; */
+	/* display: inline-flex; */
 }
 
-tr, td{
-	/* border: 1px solid black; */
-	border-bottom: 1px solid #444444;
-    padding: 5px;
-    text-align: center;
+.div_shape{
+	display : flex;
+	border: 1px solid #D5D5D5; 
+	border-radius: 10px; 
+	margin-bottom: 10px;
 }
 
-
-.item2{
-	width: 400px;
-}
-
-.paging_num_div{
-	display: flex; 
+.div_shape_title{
+	display : flex;
 	flex-direction: row; 
-	justify-content: center; 
-	padding-top: 15px;
+	justify-content:center;
+	align-content: center;
+	align-items: center;
+	font-size: 15pt;
 }
 
-.post_button{
-	display: flex; 
-	flex-direction: row-reverse; 
-	/* padding-top: 15px; */
+.title_input{
+	border: 0px; 
+	height: 30px; 
+	width: 400px; 
+	margin-left: 20px; 
+	outline: none;
+	font-size:14px;
 }
 
-.paging_num{
-	padding-left: 10px; 
-	padding-right:10px;
+.content_textarea{
+	border: 0px; 
+	height: 280px; 
+	width: 550px; 
+	margin-left: 20px; 
+	outline: none;
+	font-size:13px;
+	resize: none;
 }
 </style>
 <body>
 
+<div class="container">
 
-<table class="post_table">
-	<thead>
-		<tr>
-			<td colspan="5" style="height : 60px; text-align: center;">POST</td>
-		</tr>
-		<tr>
-			<td style="width: 15px;">No.</td>
-			<td style="width: 25px;">Title</td>
-			<td style="width: 150px;">Content</td>
-			<td style="width: 30px;">date</td>
-			<td style="width: 15px;">Writer</td>
-		</tr>
-	</thead>
-	<tbody>
-		
-		<c:choose>
-			<c:when test="${fn:length(postList)!=0}">
-				<c:forEach var="item" items="${postList}" varStatus="status">
-				<tr>
-					<td><c:out value="${status.count}" /></td>
-					<td><c:out value="${fn:substring(item.title, 0, 5)}"/></td>
-					<td style="text-align: left;"><c:out value="${fn:substring(item.content, 0, 10)}"/></td>
-					<td><c:out value="${fn:substring(item.date, 0, 10)}"/></td>
-					<td><c:out value="${item.id}"/></td>
-				</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="5">조회된 글이 없습니다.</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
-		
-		<tr>
 
-		<tr style="border-bottom: 0px;">
-			<td colspan="5" style="border-bottom: 0px;">
-				<div class="paging_num_div"> 
-					<div>&lt;&lt;</div>  
-					<div class="paging_num">1 2 3 </div>
-					<div>&gt;&gt;</div>
+
+<c:choose>
+	<c:when test="${postDetail != null}">
+		
+		<form action="/postmodify" id="post_modify_frm" method="post">
+		
+			<input type="hidden" name="post_seq" value="${postDetail.post_seq}"/>
+		
+			<div id="post_date_div" style="height: 40px; align-items: center;" class="div_shape">
+				<label for="post_date_div" style="margin-left: 20px; width: 100px; border-right: 1px solid black" >게시일자</label>
+				<input type="text" readonly="readonly" class="title_input" id="post_date" name="date" value="${fn:substring(postDetail.date, 0, 10)}" />
+			</div>
+			
+			
+			<div id="post_writer_div" style="height: 40px; align-items: center;" class="div_shape">
+				<label for="post_writer_div" style="margin-left: 20px; width: 100px;  border-right: 1px solid black" > 게시자</label>
+				<input type="text" class="title_input" readonly="readonly" id="name" name="name" value="${postDetail.name}" />
+			</div>
+			
+			
+			<div id="title_div" style="height: 40px; align-items: center;" class="div_shape">
+				<label for="title_div" style="margin-left: 20px;  width: 100px; border-right: 1px solid black;" >제목</label>
+				<input type="text" class="title_input" id="title" name="title" value="${postDetail.title}" >
+			</div>
+			
+			
+			<div style="height: 320px; align-items: center; justify-content: center;" class="div_shape">
+				<textarea class="content_textarea" id="content" name="content"><c:out value="${postDetail.content}"/></textarea>
+			</div>
+			
+			
+			<div style="height: 40px; display : flex; flex-direction: row-reverse;">
+				<input type="button" id="save_btn" value="저장하기" style="height: 30px; margin-left: 5px;" onclick="save_btn_onclick()">
+				<input type="button" value="목록" style="height: 30px;" onclick="location.href='/postlist'">
+			</div>
+		</form>
+	</c:when>
+	
+	<c:otherwise>
+		<form action="/putuppost" id="post_write_frm" method="post">
+				<div id="post_letter_div" style="height: 80px; align-items: center;" class="div_shape_title">
+					<label for="post_letter_div" >&lt;게시판 등록 &gt;</label>
 				</div>
-			</td>
-		</tr>
-		<tr style="border-bottom: 0px;">
-			<td colspan="5" style="border-bottom: 0px;">
-				<div class="post_button"> 
-					<input type="button" value ="게시글 등록" onclick="location.href='/postwrite'">
+				<c:set var="now" value="<%=new java.util.Date()%>" />
+				<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-DD"/></c:set> 
+				
+				
+				<div id="post_date_div" style="height: 40px; align-items: center;" class="div_shape">
+					<label for="post_date_div" style="margin-left: 20px; width: 100px; border-right: 1px solid black" >게시일자</label>
+					<input type="text" readonly="readonly" class="title_input" id="post_date" name="post_date" value="<c:out value="${sysYear}"/>"/>
 				</div>
-			</td>
-		</tr>
-		<tr style="border-bottom: 0px;">
-			<td colspan="5" style="border-bottom: 0px;">
-				<div class="post_button"> 
-					<input type="button" value ="로그아웃" onclick="signOut()">
+				
+				
+				<div id="post_writer_div" style="height: 40px; align-items: center;" class="div_shape">
+					<label for="post_writer_div" style="margin-left: 20px; width: 100px;  border-right: 1px solid black" > 게시자</label>
+					<input type="text" class="title_input" readonly="readonly" id="name" name="name" value="${memberInfo.name}"/>
 				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+				
+				
+				<div id="title_div" style="height: 40px; align-items: center;" class="div_shape">
+					<label for="title_div" style="margin-left: 20px;  width: 100px; border-right: 1px solid black;" >제목</label>
+					<input type="text" maxlength="30" class="title_input" id="title" name="title" >
+				</div>
+				
+				
+				<div style="height: 320px; align-items: center; justify-content: center;" class="div_shape">
+					<textarea class="content_textarea" id="content" name="content"></textarea>
+				</div>
+				
+				
+				<div style="height: 40px; display : flex; flex-direction: row-reverse;">
+					<input type="button" value="저장하기" style="height: 30px; margin-left: 5px;" onclick="new_post_btn_onclick()">
+					<input type="button" value="목록" style="height: 30px;" onclick="location.href='/postlist'">
+				</div>
+		</form>
+	</c:otherwise>
+</c:choose>
+
+</div>
+
+
 <script type="text/javascript">
+	
+	//로그인 정보가 없으면 로그인 화면으로
+	if("${memberInfo}"== "" ){
+		
+		location.href='/';
+	}
+	
+	//수정 포스트 alert
+	if("${modifyYn}" == "Y"){
+		
+		alert("게시글 수정이 완료되었습니다.");
+		<% session.removeAttribute("modifyYn");%>
+	}
+	
+	//작성자가 로그인한 계정과 다르면
+	if( "${postDetail.id}" !== "" && "${postDetail.id}" !== "${memberInfo.id}") {
+	
+		document.getElementById('title').readOnly = true;
+		document.getElementById('content').readOnly = true;
+		document.getElementById('save_btn').style.display = 'none'; 
+	}
 
-var a = "${postList}";
-a = new Array(a);
-console.log(a);
+	
+	save_btn_onclick = function(){
+		
+		document.forms["post_modify_frm"].submit();
+	}
+	
+	
+	if("${memberInfo}"== "" ){
+		location.href='/';
+	}
 
-
-
-if("${memberInfo}"== "" ){
-	location.href='/form';
-}
-
-function signOut(){
-	location.href='/signout';
-}
-
+	function new_post_btn_onclick() {
+		
+		let title = document.getElementById("title").value;
+		let content = document.getElementById("content").value;
+		
+		if(title == ""){
+			alert("제목을 확인하세요.");
+			return;
+		}
+		
+		if(content == ""){
+			alert("내용을 확인하세요.");
+			return;
+		}
+		
+		document.forms["post_write_frm"].submit();
+	}
 </script>
 </body>
 </html>

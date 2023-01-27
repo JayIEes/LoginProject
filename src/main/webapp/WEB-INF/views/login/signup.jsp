@@ -11,7 +11,7 @@
 
 <body>
 	<h1>회원가입</h1>
-	<form action="signupprocess" id="signup-frm" method="post">
+	<form action="signupprocess" id="signup_frm" method="post">
 		<%-- <input type="hidden" id="signupError" value="${signupSucYn}"/> --%>
 	
 		<p> 아이디 <input type="text" name="id" id="id" onkeydown="idDupReset()"/>
@@ -27,7 +27,7 @@
 		<p> 성별<input type="radio" name="gender" id="male" value="M"/><label for="male">남성</label>
 		<input type="radio" name="gender" id="female" value="F"/><label for="female">여성</label>
 		</p>
-		<p><input type="submit" value="회원가입"/></p>
+		<p><input type="button" value="회원가입" onclick="register_onclick()"/></p>
 	</form>
 		<script type="text/javascript">
 	
@@ -40,11 +40,33 @@
 	
 	//아이디 중복체크 초기화
 	let idChk = false;
-	idDupReset();
+	//idDupReset();
 	
-	//회원가입 서버체크 메세지
+	/*
+	 * 회원가입 서버체크 후 중복체크 여부 리셋
+	 */
+ 	window.onpageshow = function(event){
+			//alert(window.performance.navigation.type);
+/* 		if(event.persisted){
+			console.log("뒤로가기");
+			idDupReset();
+		}else{
+			console.log("새로고침");
+			idDupReset();
+		} */
+ 		idDupReset();
+	}
+	
+	if("${signupSucYn}"=="Y"){
+		
+		alert("정상적으로 처리되었습니다.");
+		location.href="/";
+		
+	}
+	/*
+	 * 회원가입 서버체크 메세지
+	 */
 	if("${msg}" !== ""){
-		//idDupReset();
 		alert("${msg}");
 		history.back();
 	}	
@@ -53,8 +75,8 @@
 	/*
 	 * 회원가입 버튼 클릭 시
 	 */
-	function register_onclick(){
-		const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+	 register_onclick = function(){
+		/* const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 	 	const regex1 = /^[0-9|]+$/;
 		let name = document.getElementById("name").value;
 		let birthday = document.getElementById("birthday").value;
@@ -101,7 +123,7 @@
 			
 			alert("비밀번호는 필수 입력 사항입니다.");
 			return;
-		}
+		} */
 		
 		if(!idChk){
 			
@@ -110,14 +132,14 @@
 		}
 		
 		//회원가입 submit
-		document.forms["signup-frm"].submit();
+		document.forms["signup_frm"].submit();
 	};
 	
 	
 	/*
 	 * 아이디 중복체크
 	 */
-	function idDupChk(){
+	 idDupChk = function(){
 		
 		let inputId = document.getElementById("id").value;
 		
@@ -127,7 +149,7 @@
 			return;
 		}
 		
-		if(inputId.length()  < 8 ){
+		if(inputId.length  < 8 ){
 			
 			alert("아이디는 8자리 이상으로 입력해주세요.");
 			return;
@@ -168,11 +190,13 @@
 	/*
 	 * 아이디 변경 시 중복체크 여부 리셋
 	 */
-	function idDupReset(){
+	 idDupReset = function(){
 		idChk = false;
 		document.getElementById("idDupYn").innerHTML = "";
 	};
 	
+	//아이디 중복체크 초기화
+	//let idChk = false;
 	
 	</script>
 </body>

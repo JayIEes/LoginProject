@@ -19,10 +19,19 @@ public class LoginDao {
 	SqlSessionTemplate sqlSessionTemplate;
 	 
 	//로그인 
-	 public MemberVO selectMember(MemberVO mVO) throws PersistenceException, IOException{
+	 public MemberVO selectId(MemberVO mVO) throws PersistenceException, IOException{
 		 MemberVO memberVO;
 		 
-		 memberVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectMemberInfo", mVO);
+		 memberVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectId", mVO);
+		 
+		 return memberVO;
+	 }
+	 
+	 
+	 public MemberVO selectPass(MemberVO mVO) throws PersistenceException, IOException{
+		 MemberVO memberVO;
+		 
+		 memberVO = sqlSessionTemplate.selectOne("mapper.login.loginMapper.selectPass", mVO);
 		 
 		 return memberVO;
 	 }

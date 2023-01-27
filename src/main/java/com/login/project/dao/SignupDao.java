@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.login.project.vo.MemberVO;
-import com.login.project.vo.SignupVO;
-
 
 
 @Repository
@@ -18,20 +16,29 @@ public class SignupDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	 
-	//아이디 중복체크
-	 public String selectId(String id) throws PersistenceException, IOException{
+	 /**
+	 * 아이디 중복체크
+	 * @methodName selectId
+	 * @param String id
+	 * @return String
+	 */
+	public String selectId(String id) throws PersistenceException, IOException{
 		 
 		 String resultId="";
 		 
 		 resultId = sqlSessionTemplate.selectOne("mapper.login.signupMapper.selectId", id);
 		
-		 System.out.println(resultId+"=============================");
-		 
 		 return resultId;
 	 }
 	 
-	 //회원 신규등록
-	 public int insertNewMember(MemberVO mVO) throws PersistenceException, IOException{
+	 
+	 /**
+	 * 회원 신규등록
+	 * @methodName insertNewMember
+	 * @param MemberVO mVO
+	 * @return int
+	 */
+	public int insertNewMember(MemberVO mVO) throws PersistenceException, IOException{
 		 
 		 int cnt=0;
 		 

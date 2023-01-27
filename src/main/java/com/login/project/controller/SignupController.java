@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.login.project.service.SignupService;
 import com.login.project.vo.MemberVO;
-import com.login.project.vo.SignupVO;
 
 
 /**
@@ -83,7 +82,7 @@ public class SignupController {
 			model.addAttribute("msg","아이디를 확인하세요.");
 			return "login/signup";
 		}
-		
+		    
 		//패스워드 검증
 		if(password.equals("") || password.length() < 8 ) {
 			
@@ -103,8 +102,7 @@ public class SignupController {
 			return "login/signup";
 		}
 		
-		
-		if(gender.equals("")) {
+		if( gender == null) {
 			
 			model.addAttribute("msg","성별을 확인하세요.");
 			return "login/signup";
@@ -114,7 +112,7 @@ public class SignupController {
 		
 		model.addAttribute("signupSucYn","Y");
 			
-		return "login/form";
+		return "login/signup";
 	}
 	
 }
