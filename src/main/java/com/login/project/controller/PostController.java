@@ -12,8 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.login.project.domain.Criteria;
+import com.login.project.domain.PageDTO;
 import com.login.project.domain.PostDomain;
 import com.login.project.service.PostService;
 import com.login.project.vo.MemberVO;
@@ -21,6 +26,7 @@ import com.login.project.vo.PostVO;
 import com.login.project.vo.SearchVO;
 
 @Controller
+@SessionAttributes({"postuploaded","modifyYn"})
 public class PostController {
 	
 	@Autowired
@@ -30,16 +36,25 @@ public class PostController {
 	/**
 	 * 게시판 목록 페이지 
 	 * @methodName post
-	 * @param Model model, SessionStatus ss
+	 * @param Model model
 	 * @return String
 	 */
 	@RequestMapping(value = "postlist", method = RequestMethod.GET)
-	public String post(Model model, SessionStatus ss) {
+	public String post(Criteria cri,Model model) {
 		
 		List<PostDomain> list =null;
 		
+		//post테이블의 전체 게시글 리스트로 가져오기
+		//list = postService.selectPosts();
+		
+		int totalCnt = postService.selectPostsAmount(); //전체 글 개수
+		
+		PageDTO pDto = new PageDTO(cri, totalCnt);
+		
 		list = postService.selectPosts();
+		
 		model.addAttribute("postList", list);
+		model.addAttribute("paging", pDto);
 		
 		return "/post/post_list";
 	}
@@ -65,26 +80,34 @@ public class PostController {
 	 * @return String
 	 */
 	@RequestMapping(value = "putuppost", method = RequestMethod.POST)
-	public String postPutUp(PostVO pVO, HttpSession session) throws IOException {
+	public ModelAndView postPutUp(PostVO pVO, HttpSession session) throws IOException {
 		
 		int cnt=0;
 		
+		//회원 세션 값 얻기
 		MemberVO mVO = (MemberVO)session.getAttribute("memberInfo");
 		
 		pVO.setId(mVO.getId());
 		
-		
 		cnt=postService.insertPost(pVO);
 		
+		ModelAndView mav = new ModelAndView();
+		
 		if(cnt!=0) {//게시판 등록 성공시
-			
-			//성공 메시지 넣기 model로
-			session.setAttribute("postuploaded", "Y");
-			return "redirect:/postlist";
+		    
+		    RedirectView redirectView = new RedirectView("/postlist");
+		    redirectView.setExposeModelAttributes(false);
+
+		    mav.setView(redirectView);
+		    mav.addObject("postuploaded","Y");
+
+			//session.setAttribute("postuploaded", "Y");
+			return mav;
 		}else {
 			
-			return "/post/post";
-		}//if else
+			mav.setViewName("/post/post");
+			return mav;
+		}//else
 		
 	}
 	
@@ -92,14 +115,13 @@ public class PostController {
 	/**
 	 * 게시글 상세페이지
 	 * @methodName postDetail
-	 * @param int post_seq
+	 * @param int post_seq, Model model
 	 * @return String
 	 */
 	@RequestMapping(value = "post/{post_seq}", method = RequestMethod.GET)
 	public String postDetail(@PathVariable int post_seq, Model model) {
 		
 		PostDomain pDomain = postService.selectPostDetail(post_seq);
-		//System.out.println(session.getAttribute("modifyYn")+"---------------");
 		
 		model.addAttribute("postDetail", pDomain);
 		
@@ -114,15 +136,23 @@ public class PostController {
 	 * @return String
 	 */
 	@RequestMapping(value = "postmodify", method = RequestMethod.POST)
-	public String postModify(PostVO pVO, Model model, HttpSession session) {
+	public ModelAndView postModify(PostVO pVO) {
 		
 		postService.updatePost(pVO);
 		
-		String adr = "redirect:/post/"+pVO.getPost_seq();
+		//String adr = "redirect:/post/"+pVO.getPost_seq();
 		
-		session.setAttribute("modifyYn","Y");
+		ModelAndView mav = new ModelAndView();
 		
-		return adr;
+		RedirectView redirectView = new RedirectView("/post/"+pVO.getPost_seq());
+		redirectView.setExposeModelAttributes(false);
+
+		mav.setView(redirectView);
+		mav.addObject("modifyYn","Y");
+		
+		//session.setAttribute("modifyYn","Y");
+		
+		return mav;
 	}
 	
 	

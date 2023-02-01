@@ -54,6 +54,22 @@ public class PostDao {
 	
 	
 	/**
+	 * 게시글 총 개수
+	 * @methodName selectPostsAmount
+	 * @param 
+	 * @return int
+	 */
+	public int selectPostsAmount() {
+		
+		int cnt = 0;
+		
+		cnt = sqlSessionTemplate.selectOne("mapper.post.postMapper.selectPostsCnt");
+		
+		return cnt;
+	}
+	
+	
+	/**
 	 * 게시글 상세조회
 	 * @methodName selectPostDetail
 	 * @param int post_seq

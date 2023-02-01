@@ -57,6 +57,21 @@ public class PostService {
 	}
 	
 	
+	/**
+	 * 게시글 총 개수 
+	 * @methodName selectPostsAmount
+	 * @param 
+	 * @return int
+	 */
+	public int selectPostsAmount() {
+		
+		int cnt = 0;
+		
+		cnt = pDAO.selectPostsAmount();
+		
+		return cnt;
+	}
+	
 	
 	/**
 	 * 게시글 상세 
@@ -90,6 +105,12 @@ public class PostService {
 	}
 	
 	
+	/**
+	 * 게시글 검색
+	 * @methodName searchPostsByWord
+	 * @param SearchVO sVO
+	 * @return List<PostDomain>
+	 */
 	public List<PostDomain> searchPostsByWord(SearchVO sVO){
 		
 		List<PostDomain> list = null;

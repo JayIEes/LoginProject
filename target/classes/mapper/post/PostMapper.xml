@@ -14,7 +14,14 @@
 	<select id="selectPosts" resultType="postDomain">
 		select post_seq, id, title, content, del_yn, date, name
 		from post
-		order by date, post_seq
+		order by date desc, post_seq desc
+	</select>
+	
+	
+	<!-- 게시글 총 개수 조회-->
+	<select id="selectPostsCnt" resultType="int">
+		select count(*)
+		from post
 	</select>
 	
 	

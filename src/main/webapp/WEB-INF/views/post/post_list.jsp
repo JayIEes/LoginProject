@@ -86,12 +86,12 @@ tr, td{
 		<c:choose>
 			<c:when test="${fn:length(postList)!=0}">
 				<c:forEach var="item" items="${postList}" varStatus="status">
-				<tr style="height: 35px;" onclick="post_list_onclick(${item.post_seq})" onmouseover="post_list_onmouseover(this)" onmouseout="post_list_onmouseout(this)" >
-					<td><c:out value="${status.count}" /></td>
-					<td><c:out value="${fn:substring(item.date, 0, 10)}"/></td>
-					<td><c:out value="${item.name}"/></td>
-					<td style="text-align: left;"><c:out value="${item.title}"/></td>
-				</tr>
+					<tr style="height: 35px;" onclick="post_list_onclick(${item.post_seq})" onmouseover="post_list_onmouseover(this)" onmouseout="post_list_onmouseout(this)" >
+						<td><c:out value="${status.count}" /></td>
+						<td><c:out value="${fn:substring(item.date, 0, 10)}"/></td>
+						<td><c:out value="${item.name}"/></td>
+						<td style="text-align: left;"><c:out value="${item.title}"/></td>
+					</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -104,7 +104,11 @@ tr, td{
 		<tr style="border-bottom: 0px;">
 			<td colspan="5" style="border-bottom: 0px;">
 				<div class="paging_num_div"> 
-					<div>&lt;&lt;</div>  
+					<div>
+						<img src="../images/WEB-INF/images/next_btn.png" alt="이전" title="처음페이지"
+							width="20px" height="20px"/>
+					</div>
+					<div>&lt;</div>  
 					<div class="paging_num">1 2 3 </div>
 					<div>&gt;&gt;</div>
 				</div>
@@ -116,11 +120,13 @@ tr, td{
 </form>
 <script type="text/javascript">
 
+
 	//로그인 정보가 없으면 로그인 화면으로
 	if("${memberInfo}"== "" ){
 		
 		location.href='/';
 	}
+	
 	
 	//게시판 등록 완료 alert
 	if("${postuploaded}" == "Y"){
@@ -141,6 +147,7 @@ tr, td{
 		}
 	}
 	
+	
 	//검색 후 검색어 input box에 남게
 	if("${searchword}" != ""){
 		
@@ -155,8 +162,6 @@ tr, td{
 		
 		location.href = '/signout';
 	}
-	
-	
 	
 	
 	/*
@@ -197,6 +202,7 @@ tr, td{
 	    }
 		
 	}
+	
 	
 	/*
 	 * 게시글 한 행 마우스 아웃 시

@@ -12,7 +12,6 @@
 <body>
 	<h1>회원가입</h1>
 	<form action="signupprocess" id="signup_frm" method="post">
-		<%-- <input type="hidden" id="signupError" value="${signupSucYn}"/> --%>
 	
 		<p> 아이디 <input type="text" name="id" id="id" onkeydown="idDupReset()"/>
 		<input type="button" value="중복검사" onclick="idDupChk()"/>
@@ -25,11 +24,16 @@
 		<p> 생년월일 <input type="text" name="birthday" id="birthday"/></p>
 		
 		<p> 성별<input type="radio" name="gender" id="male" value="M"/><label for="male">남성</label>
-		<input type="radio" name="gender" id="female" value="F"/><label for="female">여성</label>
+			<input type="radio" name="gender" id="female" value="F"/><label for="female">여성</label>
 		</p>
-		<p><input type="button" value="회원가입" onclick="register_onclick()"/></p>
+		<p>
+			<input type="button" value="회원가입" onclick="register_onclick()"/>
+			<input type="button" value="로그인" onclick="location.href='/'"/>
+		</p>
 	</form>
-		<script type="text/javascript">
+	
+
+<script type="text/javascript">
 	
 	/************************************************************************
 	 * 설명 : 회원가입 폼
@@ -40,90 +44,22 @@
 	
 	//아이디 중복체크 초기화
 	let idChk = false;
-	//idDupReset();
-	
-	/*
-	 * 회원가입 서버체크 후 중복체크 여부 리셋
-	 */
- 	window.onpageshow = function(event){
-			//alert(window.performance.navigation.type);
-/* 		if(event.persisted){
-			console.log("뒤로가기");
-			idDupReset();
-		}else{
-			console.log("새로고침");
-			idDupReset();
-		} */
- 		idDupReset();
-	}
-	
-	if("${signupSucYn}"=="Y"){
-		
-		alert("정상적으로 처리되었습니다.");
-		location.href="/";
-		
-	}
-	/*
-	 * 회원가입 서버체크 메세지
-	 */
-	if("${msg}" !== ""){
-		alert("${msg}");
-		history.back();
-	}	
 	
 	
 	/*
 	 * 회원가입 버튼 클릭 시
 	 */
-	 register_onclick = function(){
-		/* const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
-	 	const regex1 = /^[0-9|]+$/;
-		let name = document.getElementById("name").value;
-		let birthday = document.getElementById("birthday").value;
+	register_onclick = function(){
+	
 		let id = document.getElementById("id").value;
 		let password = document.getElementById("password").value;
+		let name = document.getElementById("name").value;
+		let birthday = document.getElementById("birthday").value;
+		let gender = "";
 		
-		if(name == ""){
-			
-			alert("이름은 필수 입력 사항입니다.");
-			return;
+		if(document.querySelector('input[name="gender"]:checked')){
+			gender = document.querySelector('input[name="gender"]:checked').value;
 		}
-		
-		if(!regex.test(name)){
-			
-			alert("올바른 이름을 입력해주세요.");
-			return;
-		}
-		
-	 	if(birthday == ""){
-			
-	 		alert("생년월일은 필수 입력 사항입니다.");
-			return;
-		}
-		
-		if(birthday.length !== 8){
-			
-			alert("생년월일은 예시)19930102 처럼 입력해주세요.");
-			return;
-		}
-		
-		if(!regex1.test(birthday)){
-		
-			alert("올바른 생년월일을 입력해주세요.");
-			return;
-		}
-		
-		if(id == ""){
-			
-			alert("아이디는 필수 입력 사항입니다.");
-			return;
-		}
-		
-		if(password == ""){
-			
-			alert("비밀번호는 필수 입력 사항입니다.");
-			return;
-		} */
 		
 		if(!idChk){
 			
@@ -131,8 +67,40 @@
 			return;
 		}
 		
-		//회원가입 submit
-		document.forms["signup_frm"].submit();
+
+		// Creating Our XMLHttpRequest object 
+	    var xhr = new XMLHttpRequest();
+	    
+		//POST 방식
+		
+	    // Making our connection
+	    var url = '/signupprocess';
+	    xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    let str = "id="+id+"&password="+password+"&name="+name+"&birthday="+birthday+"&gender="+gender+"";
+	 
+		xhr.send(str);
+		
+	    // function execute after request is successful 
+	    xhr.onreadystatechange = function () {
+	        if (this.readyState == 4 && this.status == 200) {
+	        	
+	        	if(this.response == "Y"){ //회원가입 성공
+	        		
+	        		location.href="/signupcomplete";
+	        	}else if(this.response == "N"){
+	        		
+	        		alert("회원가입에 실패했습니다.");
+	        		location.href="/signup";
+	        	}else{
+	        		
+	        		alert(this.response);
+	        		return;
+	        	}//else
+	        	
+	        }
+	        
+	    }//xhr.onreadystatechange
 	};
 	
 	
@@ -186,18 +154,16 @@
 	};
 	
 	
-	
 	/*
 	 * 아이디 변경 시 중복체크 여부 리셋
 	 */
 	 idDupReset = function(){
+		
 		idChk = false;
 		document.getElementById("idDupYn").innerHTML = "";
 	};
 	
-	//아이디 중복체크 초기화
-	//let idChk = false;
 	
-	</script>
+</script>
 </body>
 </html>

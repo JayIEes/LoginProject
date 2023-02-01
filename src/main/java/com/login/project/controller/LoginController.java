@@ -50,7 +50,7 @@ public class LoginController {
 		
 		MemberVO memberVO = loginService.searchLoginId(mVO);
 		
-		 if(memberVO != null) { //아이디가 있으면 비밀번호 찾기
+		if(memberVO != null) { //아이디가 있으면 비밀번호 찾기
 			
 			memberVO = loginService.searchLoginPass(mVO);
 			
@@ -64,11 +64,11 @@ public class LoginController {
 				return "login/form";
 			}
 			
-		 }else {
+		}else {
 			 
 			 model.addAttribute("loginSucYn","아이디를 확인하세요."); 
 			 return "login/form"; 
-		 }
+		}
 
 	}
 	

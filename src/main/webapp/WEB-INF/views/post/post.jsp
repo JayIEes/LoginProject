@@ -55,9 +55,8 @@
 	border: 0px; 
 	height: 280px; 
 	width: 550px; 
-	margin-left: 20px; 
 	outline: none;
-	font-size:13px;
+	font-size:14px;
 	resize: none;
 }
 </style>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import com.login.project.vo.MemberVO;
@@ -25,7 +26,7 @@ public class SignupDao {
 	public String selectId(String id) throws PersistenceException, IOException{
 		 
 		 String resultId="";
-		 
+		
 		 resultId = sqlSessionTemplate.selectOne("mapper.login.signupMapper.selectId", id);
 		
 		 return resultId;
@@ -42,7 +43,13 @@ public class SignupDao {
 		 
 		 int cnt=0;
 		 
-		 cnt = sqlSessionTemplate.insert("mapper.login.signupMapper.insertMember", mVO);
+		 try {
+			 
+			 cnt = sqlSessionTemplate.insert("mapper.login.signupMapper.insertMember", mVO);
+		 } catch (DataIntegrityViolationException e) {
+			
+			return 0;
+		 }
 		 
 		 return cnt;
 	 }
